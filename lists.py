@@ -12,6 +12,7 @@ class UniDirectionalList:
         self.current = None
 
     def add(self, value):
+        """добавление элемента"""
         if self.head == None:
             self.head = ListItem(value)
         else:
@@ -66,18 +67,51 @@ class UniDirectionalList:
             if self.current.value == value:
                 return self.current.value
 
+    def buble_party(self):
+        """Сортировка пузырьком"""
+        if self.head == None:
+            print('Список пустой')
+        else:
+            self.current = self.head
+        len = self.len_list()
+        count = 0
+        while count != len:
+            if self.current.next == None:
+                self.current = self.head
+                count += 1
+            elif self.current.value > self.current.next.value:
+                self.current.value, self.current.next.value = self.current.next.value, self.current.value
+                self.current = self.current.next
+                # continue
+            elif self.current.value < self.current.next.value:
+                self.current = self.current.next
+            elif self.current.value == self.current.next.value:
+                self.current = self.current.next
+
+    def len_list(self):
+        """возвращает длинну списка"""
+        if self.head == None:
+            return None
+        else:
+            self.current = self.head
+        count = 1
+        while self.current.next != None:
+            count += 1
+            self.current = self.current.next
+        return count
 
 x = UniDirectionalList()
-x.add(1)
-x.add(2)
-x.add(3)
-x.add('qwerty')
-x.add(4)
-x.add(True)
 x.add(5)
+x.add(3)
+x.add(2)
+x.add(4)
+x.add(1)
+x.add(10)
+x.add(4)
+x.add(5)
+print('неотсортированный список:')
 x.list_demo()
-print('-------')
-x.search(True)
-
-
+print('отсортированный:')
+x.buble_party()
+x.list_demo()
 
